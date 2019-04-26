@@ -29,13 +29,18 @@ class Home extends Component {
     render() {
         return (
         <div className='container'>
+        <h1 className='header'>STAR WARS</h1>
             <div className="search-input">
             <input placeholder='Enter a movie name' type="text" onChange={this.inputChangeHandler}/>
-            <input type="button" value="Search" onClick={this.searchClickHandler} />
+            <button className='search-button' onClick={this.searchClickHandler} >Search</button>
             </div>
+            {this.props.status.loading ? 
+            <div className='loading'>Loading ...</div>
+            :
             <div className='cards-list'>
             {this.renderFilms()}
             </div>
+        }
         </div>
         );
     }

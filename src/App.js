@@ -1,12 +1,18 @@
 import React from 'react';
-import './App.css';
-import Home from './components/pages/Home';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+
+import Home from './components/pages/Home/Home';
+import Film from './components/pages/Film/Film';
+import './App.scss';
 
 function App() {
     return (
+        <Router >
         <div className="App">
-            <Home />
+            <Route exact path="/" component={Home} />
+            <Route path="/film/:id" component={Film} />
         </div>
+        </Router>
     );
 }
 

@@ -1,0 +1,15 @@
+.container {
+    max-width: 1200;
+    margin: auto;
+    padding: 55px;
+    .search-input {
+        padding: 10px;
+        margin-bottom: 20px;
+        display: flex;
+        width: 100%; 
+    }
+    .cards-list {
+        display: flex;
+        flex-wrap: wrap;
+    }
+}

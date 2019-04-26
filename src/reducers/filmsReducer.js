@@ -62,7 +62,11 @@ const filmsReducer = (state = initialState, {type, payload}) => {
             case FETCH_FILM:
             return {
                 ...state,
-                selectedFilm: payload
+                selectedFilm: payload,
+                status: {
+                    loading: false,
+                    error: null
+                }
             }      
         default:
             return state;

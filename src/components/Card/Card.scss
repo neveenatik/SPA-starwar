@@ -19,3 +19,15 @@
         margin-top: 0;
     }
 }
+
+@media screen and (max-width: 831px) {
+      .card{
+        width: calc(100% / 2 - 20px);
+      }
+}
+
+@media screen and (max-width: 625px) {
+    .card{
+      width: calc(100% - 20px);
+    }
+}

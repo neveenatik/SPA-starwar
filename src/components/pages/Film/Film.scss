@@ -1,12 +1,25 @@
 
+.back-link {
+    text-decoration: none;
+    color: inherit;
+    .icon{
+        margin-right: 10px;
+        color: rgb(61, 61, 245);
+        font-size: 12px;
+    }
+}
 .details {
     margin-top: 30px;
     .bold-start{
         font-weight: 700;
     }
+    .film-title{
+        padding: 10px 0;
+    }
     
     p {
         line-height: 1.2;
         text-align: justify;
+        padding-bottom: 10px;
     }
 }

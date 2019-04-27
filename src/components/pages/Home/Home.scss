@@ -1,10 +1,13 @@
 .container {
+    width: 100%;
     max-width: 1200;
     margin: auto;
-    padding: 55px;
+    padding: 25px;
     .header{
         font-size: 46px;
         font-weight: normal;
+        padding: 10px;
+        margin-bottom: 10px;
     }
     .search-input {
         padding: 0 10px;
@@ -23,6 +26,7 @@
             border-top-left-radius: 3px;
         }
         .search-button{
+            padding:  8px 16px;
             background-color: rgba(228, 99, 99, 0.938);
             border: 1px solid rgba(228, 99, 99, 0.938);
             color: white;
@@ -37,14 +41,13 @@
 }
 
 .loading {
-    animation: blinking 0.8s infinite;
+    display: block;
+    animation: spin 0.5s linear infinite;
+    margin: 50px auto;
+    font-size: 24px;
 }
 
-@keyframes blinking {
-    0% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0;
-    }
-}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }

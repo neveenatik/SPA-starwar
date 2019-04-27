@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import {filmsFetching, searchFilm} from '../../../actions/filmsAction';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch, faCircleNotch } from '@fortawesome/free-solid-svg-icons';
 import Card from '../../Card/Card';
 import './Home.scss';
 
@@ -32,10 +34,10 @@ class Home extends Component {
         <h1 className='header'>STAR WARS</h1>
             <div className="search-input">
             <input placeholder='Enter a movie name' type="text" onChange={this.inputChangeHandler}/>
-            <button className='search-button' onClick={this.searchClickHandler} >Search</button>
+            <button className='search-button' onClick={this.searchClickHandler} ><FontAwesomeIcon icon={faSearch} /></button>
             </div>
             {this.props.status.loading ? 
-            <div className='loading'>Loading ...</div>
+            <FontAwesomeIcon className='loading' icon={faCircleNotch} />
             :
             <div className='cards-list'>
             {this.renderFilms()}

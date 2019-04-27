@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import {fetchFilm} from '../../../actions/filmsAction';
 import {Link} from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft, faCircleNotch } from '@fortawesome/free-solid-svg-icons';
+import {fetchFilm} from '../../../actions/filmsAction';
 
 import './Film.scss';
 
@@ -13,10 +15,10 @@ class Film extends Component {
       const film = this.props.film;
     return (
       <div className='container'>
-        <Link to='/'>Back to movies search</Link>
+        <Link className='back-link' to='/'><FontAwesomeIcon className='icon' icon={faArrowLeft}/> Back to movies search</Link>
         {
             this.props.status.loading ? 
-            <div className='loading'> loading </div> 
+            <FontAwesomeIcon className='loading' icon={faCircleNotch} />
             : 
         <div className='details'>
         <h2 className="film-title">{film.title}</h2>

@@ -12,7 +12,7 @@ class Film extends Component {
         this.props.fetchFilm(this.props.match.params.id);
     }
   render() {
-      const film = this.props.film;
+      const {film} = this.props;
     return (
       <div className='container'>
         <Link className='back-link' to='/'><FontAwesomeIcon className='icon' icon={faArrowLeft}/> Back to movies search</Link>
@@ -35,8 +35,8 @@ class Film extends Component {
 }
 
 const mapStateToProps = state => ({
-    film: state.selectedFilm,
-    status: state.status
+    film: state.films.selectedFilm,
+    status: state.films.status
 })
 
 export default connect(

@@ -2,15 +2,13 @@ import {
     START_FETCH_ALL_FILMS,
     ALL_FILMS_FETCHED,
     FETCH_ALL_FILMS_FAILED,
-    UPDATE_FILMS,
     FETCH_FILM
 } from '../actions/constants';
 
 const initialState = {
     data: [],
     count: 0,
-    next: null,
-    previous: null,
+    totalPages: 1,
     status: {
         loading: false,
         error: null
@@ -32,8 +30,7 @@ const filmsReducer = (state = initialState, {type, payload}) => {
                 ...state,
                 data: payload.results,
                 count: payload.count,
-                next: payload.next,
-                previous: payload.previous,
+                totalPages: Math.ceil(payload.count/10),
                 status: {
                     loading: false,
                     error: null
@@ -45,18 +42,6 @@ const filmsReducer = (state = initialState, {type, payload}) => {
                 status: {
                     loading: false,
                     error: payload
-                }
-            } 
-            case UPDATE_FILMS:
-            return {
-                ...state,
-                data: payload.results,
-                count: payload.count,
-                next: payload.next,
-                previous: payload.previous,
-                status: {
-                    loading: false,
-                    error: null
                 }
             } 
             case FETCH_FILM:

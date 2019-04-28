@@ -7,11 +7,44 @@
     border-radius: 3px;
     padding: 20px;
     margin: 10px;
-    .film-title{
+    &.media{
+        flex-direction: row;
+        width: calc(100% / 2 - 20px);
+        justify-content: space-between;
+        .info{
+            display: flex;
+            width: 60%;
+            .media-container{
+                width: 40%;
+                overflow: hidden;
+                .avatar {
+                    object-fit: cover;
+                    width: 100%;
+                }
+            }
+            .info-content{
+                display: flex;
+                flex-direction: column;
+                padding: 10px;
+                width: 60%;
+            }
+        }
+        .movies-list {
+            padding: 10px;
+            width: 40%;
+            display: flex;
+            flex-direction: column;
+            .list-item {
+                display: block;
+                text-decoration: none;
+            }
+        }
+    }
+    .card-title{
         flex: 1 1 auto;
         margin-bottom: 10px;
     }
-    p {
+    .one-line-text {
         padding: 5px 0;
         white-space: nowrap;
         overflow: hidden;

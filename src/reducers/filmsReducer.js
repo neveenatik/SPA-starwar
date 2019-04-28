@@ -2,7 +2,7 @@ import {
     START_FETCH_ALL_FILMS,
     ALL_FILMS_FETCHED,
     FETCH_ALL_FILMS_FAILED,
-    FETCH_FILM
+    FETCH_FILM,
 } from '../actions/constants';
 
 const initialState = {

@@ -48,7 +48,6 @@ export function searchActor(input) {
                 const films = [];
                 actor.films.forEach(async(url) => {
                     const film = await fetchSingleFilm(url.match(/\d+/)[0]);
-                    console.log(film)
                     films.push(film);
                 });
                 return {
@@ -57,6 +56,7 @@ export function searchActor(input) {
                 }
             })
             dispatch({type: ACTORS_FETCHED, payload: {...actors.data, results: mappedData}});
+            dispatch({type: SET_PAGE, payload: 1})
         } catch (error) {
             dispatch({type: FETCH_ACTORS_FAILED, payload: error});
         }

@@ -7,11 +7,14 @@ import { faSearch, faCircleNotch } from '@fortawesome/free-solid-svg-icons';
 import Card from '../../Card/Card';
 import Pagination from '../../Pagination/Pagination';
 import './Home.scss';
-
+import {debounce} from 'lodash';
 
 class Home extends Component {
     state = {
         userInput: "",
+        suggestions: [],
+        activeSelection: 0,
+        isActive: false
     }
 
     componentDidMount() {
@@ -19,8 +22,68 @@ class Home extends Component {
         this.props.actorsFetching();
     }
 
+    setTab = (e) => {
+        this.props.setActiveTab(e.target.innerText);
+    }
+
     inputChangeHandler = (e) => {
-        this.setState({userInput: e.target.value});
+        const suggestions = this.props.activeTab === 'Movies' ?
+        this.filterFilms(e.target.value) : this.filterActors(e.target.value);
+        this.setState({userInput: e.target.value, suggestions: suggestions, isActive: true});
+    }
+
+    filterFilms = (input) => 
+        this.props.films.filter(film => film.title.toLowerCase().indexOf(input.toLowerCase()))
+    filterActors = (input) => 
+        this.props.actors.filter(actor => actor.name.toLowerCase().indexOf(input.toLowerCase()))
+    
+    selectionHandler = (e) =>{
+    console.log(e.target.innerText);
+        this.setState({
+            isActive: false, 
+            userInput: e.target.innerText, 
+            suggestions: [], 
+            activeSelection: 0
+        });}
+
+    onBlur = debounce(() => {
+        this.setState({isActive: false});
+        if(!this.state.userInput){
+            this.props.activeTab === 'Movies' ?
+            this.props.filmsFetching()
+            : this.props.actorsFetching()
+        }
+    }, 300);
+
+    onKeyDown = (e) => {
+        const {
+            suggestions,
+            activeSelection
+        } = this.state
+        //user press enter
+        if(e.keyCode  === 13) {
+            /*if  there is a dropdown suggestions set state 
+            otherwise trigger searchHandler
+            */
+            if(suggestions.length){
+                const userInput = this.props.activeTab === 'Movies' ? 
+                suggestions[activeSelection].title
+                : suggestions[activeSelection].name;
+                this.setState({isActive: false, userInput: userInput, suggestions: []});
+            } else {
+                this.searchClickHandler();
+            }
+        }
+        //user press up arrow
+        if(e.keyCode === 38){
+            if(activeSelection === 0) return;
+            this.setState({activeSelection: activeSelection - 1});
+        }
+        //user press down arrow
+        if(e.keyCode === 40){
+            if(activeSelection === suggestions.length - 1) return;
+            this.setState({activeSelection: activeSelection + 1});
+        }
     }
 
     searchClickHandler = () => {
@@ -29,14 +92,10 @@ class Home extends Component {
         : this.props.searchActor(this.state.userInput);
     }
 
-    setTab = (e) => {
-        this.props.setActiveTab(e.target.innerText);
-    }
-
-    filterFilms = (input) => this.props.films.filter(film => film.title.match(input))
-
-    renderFilms = () => this.props.films.map((film, i) => <Card key={i} data={film} isFilm />);
-    renderActors = () => this.props.actors.map((actor, i) => <Card key={i} data={actor} />);
+    renderFilms = () => 
+        this.props.films.map((film, i) => <Card key={i} data={film} isFilm />);
+    renderActors = () => 
+        this.props.actors.map((actor, i) => <Card key={i} data={actor} />);
 
     render() {
         const inputPlaceHolder = this.props.activeTab === 'Movies' ?
@@ -45,12 +104,38 @@ class Home extends Component {
         <div className='container'>
             <h1 className='header'>STAR WARS</h1>
         <div className='tabs'>
-            <button className={`tab ${this.props.activeTab === 'Movies' ? "active" : ''}`} onClick={this.setTab}>Movies</button>
-            <button className={`tab ${this.props.activeTab === 'Actors' ? "active" : ''}`} onClick={this.setTab}>Actors</button>
+            <button 
+                className={`tab ${this.props.activeTab === 'Movies' ? 
+                "active" : ''}`} 
+                onClick={this.setTab}>
+            Movies</button>
+            <button 
+                className={`tab ${this.props.activeTab === 'Actors' ?
+                "active" : ''}`} 
+                onClick={this.setTab}>
+            Actors</button>
         </div>
             <div className="search-input">
-            <input placeholder={inputPlaceHolder} type="text" onChange={this.inputChangeHandler}/>
+            <input 
+                placeholder={inputPlaceHolder} 
+                type="text" value={this.state.userInput} 
+                autoComplete='off'
+                onBlur={this.onBlur}
+                onChange={this.inputChangeHandler} 
+                onKeyDown={this.onKeyDown}
+            />
             <button className='search-button' onClick={this.searchClickHandler} ><FontAwesomeIcon icon={faSearch} /></button>
+            {this.state.isActive && this.state.userInput ? 
+            <ul className='suggestions'>
+            {this.state.suggestions.map((suggestion, i) => 
+            <li 
+                key={i}
+                className={i === this.state.activeSelection ? 'active-selection' : ''} 
+                onClick={this.selectionHandler}>{this.props.activeTab === 'Movies' ? 
+                    suggestion.title : suggestion.name}
+            </li>)}
+            </ul> 
+            : null}
             </div>
             {this.props.activeTab === 'Movies' ?
                 this.props.statusFilms.loading ? 

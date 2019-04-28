@@ -28,7 +28,6 @@ const actorsReducer = (state = initialState, {type, payload}) => {
                 }
             };
         case ACTORS_FETCHED:
-        console.log(state.activePage, state.totalPages);
         return {
             ...state,
             data: payload.results,

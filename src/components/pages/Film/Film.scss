@@ -1,10 +1,11 @@
 
+$blue: rgb(61, 61, 245);
 .back-link {
     text-decoration: none;
     color: inherit;
     .icon{
         margin-right: 10px;
-        color: rgb(61, 61, 245);
+        color: $blue;
         font-size: 12px;
     }
 }

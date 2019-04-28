@@ -22,13 +22,14 @@ export default class Card extends Component {
           <img className='avatar' src={avatar} alt='avatar' />
         </div>
         <div className='info-content'>
-        <p>{data.name}</p>
+        <p className='bold-start'>{data.name}</p>
         <p>Born in {data.birth_year}</p>
         <p>Height: {data.height} CM</p>
         <p>{data.gender}</p>
         </div>
       </div>
       <div className='movies-list'>
+      <p className='bold-start'>Movies</p>
       {data.films.map(film => {
         const dataId = film.url.match(/\d+/)[0];
         return<Link key={dataId} className='list-item' to={`/film/${dataId}`}>{film.title}</Link>

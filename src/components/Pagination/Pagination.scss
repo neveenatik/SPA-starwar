@@ -1,3 +1,4 @@
+$blue: rgb(61, 61, 245);
 .pagination{
     display: flex;
     width: 100%;
@@ -15,7 +16,7 @@
         font-size: 14px;
         font-weight: 700;
         &.active {
-            background-color:  rgb(72, 72, 235);
+            background-color:  $blue;
             color: rgb(255, 255, 255);
             border-radius: 3px;
         }

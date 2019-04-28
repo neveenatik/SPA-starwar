@@ -7,6 +7,10 @@
     border-radius: 3px;
     padding: 20px;
     margin: 10px;
+    .bold-start{
+        font-weight: 600;
+        padding-bottom: 8px;
+    }
     &.media{
         flex-direction: row;
         width: calc(100% / 2 - 20px);
@@ -56,6 +60,9 @@
 @media screen and (max-width: 831px) {
       .card{
         width: calc(100% / 2 - 20px);
+        &.media {
+            width: calc(100% - 20px);
+          }
       }
 }
 

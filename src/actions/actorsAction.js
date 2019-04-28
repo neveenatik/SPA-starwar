@@ -27,6 +27,7 @@ export function actorsFetching(page) {
                 }
             }));
             dispatch({type: ACTORS_FETCHED, payload: {...actors.data, results: mappedData}});
+            console.log(page);
         } catch (error) {
             dispatch({type: FETCH_ACTORS_FAILED, payload: error});
         }

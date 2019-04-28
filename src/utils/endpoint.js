@@ -17,7 +17,7 @@ export function fetchSingleFilm(id) {
 
 export function fetchActors(page) {
     if(page) {
-        axios.get(`/api/people/?page=${page}`);
+        return axios.get(`/api/people/?page=${page}`);
     }
     return axios.get(`/api/people`);
 }

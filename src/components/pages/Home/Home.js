@@ -33,9 +33,9 @@ class Home extends Component {
     }
 
     filterFilms = (input) => 
-        this.props.films.filter(film => film.title.toLowerCase().indexOf(input.toLowerCase()))
+        this.props.films.filter(film => film.title.toLowerCase().match(input.toLowerCase()))
     filterActors = (input) => 
-        this.props.actors.filter(actor => actor.name.toLowerCase().indexOf(input.toLowerCase()))
+        this.props.actors.filter(actor => actor.name.toLowerCase().match(input.toLowerCase()))
     
     selectionHandler = (e) =>{
     console.log(e.target.innerText);

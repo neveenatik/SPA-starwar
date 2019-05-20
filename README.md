@@ -8,3 +8,6 @@ DAZN Junior Frontend Assignment
 
 #### Project setup
 The documentation on how to setup the project can be found [here](./docs/project-setup.md).
+
+#### Results
+https://neveenatik.github.io/create-react-app-skeleton

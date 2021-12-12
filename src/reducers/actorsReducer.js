@@ -3,8 +3,8 @@ import {
     ACTORS_FETCHED,
     FETCH_ACTORS_FAILED,
     SET_ACTIVE_TAB,
-    SET_PAGE
-} from '../actions/constants';
+    SET_PAGE,
+} from "../actions/constants";
 
 const initialState = {
     data: [],
@@ -12,53 +12,54 @@ const initialState = {
     totalPages: 1,
     status: {
         loading: false,
-        error: null
+        error: null,
     },
-    activeTab: 'Movies',
-    activePage: 1
-}
-const actorsReducer = (state = initialState, {type, payload}) => {
+    activeTab: "Movies",
+    activePage: 1,
+};
+const actorsReducer = (state = initialState, { type, payload }) => {
     switch (type) {
         case START_FETCH_ACTORS:
             return {
                 ...state,
                 status: {
                     loading: true,
-                    error: null
-                }
+                    error: null,
+                },
             };
         case ACTORS_FETCHED:
-        return {
-            ...state,
-            data: payload.results,
-            count: payload.count,
-            totalPages: Math.ceil(payload.count/10),
-            status: {
-                loading: false,
-                error: null
-            }
-        };
+            console.log("**", payload.count, payload);
+            return {
+                ...state,
+                data: payload.results,
+                count: payload.total_records,
+                totalPages: payload.total_pages,
+                status: {
+                    loading: false,
+                    error: null,
+                },
+            };
         case FETCH_ACTORS_FAILED:
-        return {
-            ...state,
-            status: {
-                loading: false,
-                error: payload
-            }
-        }; 
+            return {
+                ...state,
+                status: {
+                    loading: false,
+                    error: payload,
+                },
+            };
         case SET_ACTIVE_TAB:
-        return {
-            ...state,
-            activeTab: payload
-        }
+            return {
+                ...state,
+                activeTab: payload,
+            };
         case SET_PAGE:
-        return {
-            ...state,
-            activePage: payload
-        }
+            return {
+                ...state,
+                activePage: payload,
+            };
         default:
             return state;
     }
-}
+};
 
 export default actorsReducer;

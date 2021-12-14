@@ -6,7 +6,6 @@ import avatar from "../../assets/profile-avatar.png";
 export default class ActorCard extends Component {
     render() {
         const { data } = this.props;
-        console.log(data);
         return (
             <div className="card media">
                 <div className="info">

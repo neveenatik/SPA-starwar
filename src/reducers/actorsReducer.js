@@ -28,12 +28,11 @@ const actorsReducer = (state = initialState, { type, payload }) => {
                 },
             };
         case ACTORS_FETCHED:
-            console.log("**", payload.count, payload);
             return {
                 ...state,
                 data: payload.results,
-                count: payload.total_records,
-                totalPages: payload.total_pages,
+                count: payload.total_records || payload.results.length,
+                totalPages: payload.total_pages || payload.results.length / 10,
                 status: {
                     loading: false,
                     error: null,

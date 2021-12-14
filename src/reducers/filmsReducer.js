@@ -29,7 +29,7 @@ const filmsReducer = (state = initialState, { type, payload }) => {
             return {
                 ...state,
                 data: payload.result,
-                count: payload.result.length,
+                count: !state.count ? payload.result.length : state.count,
                 totalPages: Math.ceil(payload.result.length / 10),
                 status: {
                     loading: false,

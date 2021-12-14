@@ -31,5 +31,5 @@ export function fetchSingleActor(id) {
 }
 
 export function updateActors(input) {
-    return axios.get(`https://www.swapi.tech/api/people?search=${input}`);
+    return axios.get(`https://www.swapi.tech/api/people/?name=${input}`);
 }

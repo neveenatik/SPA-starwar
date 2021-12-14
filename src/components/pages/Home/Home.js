@@ -24,11 +24,19 @@ class Home extends Component {
 
     componentDidMount() {
         this.props.filmsFetching();
-        this.props.actorsFetching();
     }
 
     setTab = (e) => {
         this.props.setActiveTab(e.target.innerText);
+        if (this.props.activeTab !== e.target.innerText) {
+            if (e.target.innerText === "Actors" && !this.props.actors.length) {
+                this.props.actorsFetching();
+            }
+
+            if (e.target.innerText === "Movies" && !this.props.films.length) {
+                this.props.filmsFetching();
+            }
+        }
     };
 
     inputChangeHandler = (e) => {
@@ -44,16 +52,18 @@ class Home extends Component {
     };
 
     filterFilms = (input) =>
-        this.props.films.filter((film) =>
-            film.title.toLowerCase().match(input.toLowerCase())
+        this.props.films.filter(
+            (film) =>
+                !film.properties.title
+                    .toLowerCase()
+                    .includes(input.toLowerCase())
         );
     filterActors = (input) =>
-        this.props.actors.filter((actor) =>
-            actor.name.toLowerCase().match(input.toLowerCase())
+        this.props.actors.filter(
+            (actor) => !actor.name.toLowerCase().includes(input.toLowerCase())
         );
 
     selectionHandler = (e) => {
-        console.log(e.target.innerText);
         this.setState({
             isActive: false,
             userInput: e.target.innerText,
@@ -64,10 +74,14 @@ class Home extends Component {
 
     onBlur = debounce(() => {
         this.setState({ isActive: false });
-        if (!this.state.userInput) {
+        if (
+            !this.state.userInput &&
+            this.props.filmsCount !== this.props.films.length &&
             this.props.activeTab === "Movies"
-                ? this.props.filmsFetching()
-                : this.props.actorsFetching();
+        ) {
+            this.props.filmsFetching();
+        } else if (!this.state.userInput && this.props.activeTab === "Actors") {
+            this.props.actorsFetching();
         }
     }, 300);
 
@@ -81,7 +95,7 @@ class Home extends Component {
             if (suggestions.length) {
                 const userInput =
                     this.props.activeTab === "Movies"
-                        ? suggestions[activeSelection].title
+                        ? suggestions[activeSelection].properties.title
                         : suggestions[activeSelection].name;
                 this.setState({
                     isActive: false,
@@ -164,7 +178,7 @@ class Home extends Component {
                     >
                         <FontAwesomeIcon icon={faSearch} />
                     </button>
-                    {this.state.isActive && this.state.userInput ? (
+                    {this.state.isActive && this.state.suggestions.length ? (
                         <ul className="suggestions">
                             {this.state.suggestions.map((suggestion, i) => (
                                 <li
@@ -177,7 +191,7 @@ class Home extends Component {
                                     onClick={this.selectionHandler}
                                 >
                                     {this.props.activeTab === "Movies"
-                                        ? suggestion.title
+                                        ? suggestion.properties.title
                                         : suggestion.name}
                                 </li>
                             ))}

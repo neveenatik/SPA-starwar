@@ -12,7 +12,6 @@ class Pagination extends Component {
             : this.props.actorsFetching(e.target.innerText);
     };
     render() {
-        console.log("{ totalPages }", this.props.totalPages);
         const pagesList = [];
         for (let i = 1; i <= this.props.totalPages; i++) {
             const className =
